@@ -36,7 +36,7 @@ For example at `resources/views/.babelrc.json`
 }
 ```
 
-### Usage
+## Usage
 
 Babel-blade looks for script blocks that use the string literal `<script type="text/babel">` so no other javascript or script block will be modified.
 
@@ -60,3 +60,29 @@ will be transformed at compile time into:
 })();
 </script>
 ```
+
+## Polyfills
+
+Babel implements async/await using generators, which need to be polyfilled on older platforms.
+Without the polyfill you'll see the error:
+```
+ReferenceError: Can't find variable: regeneratorRuntime
+```
+To solve this you can include an additional script tag that includes the polyfill, for example:
+```
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.12.1/polyfill.min.js"></script>
+```
+
+## Blade directives
+
+Because babel-blade runs early in the compilation process, directives such as `@json($src)` haven't been parsed yet and will be passed to Babel as they are.
+
+You will then get failures such as ```Support for the experimental syntax 'decorators-legacy' isn't currently enabled``` as Babel tries to parse `@json`.
+
+There is likely not a solution to this due to the order of execution in blade, instead use the style `"{{$src}}" with appropriate escaping.`
+
+## License
+
+Copyright © Chris Lloyd
+
+Flat3 babel-blade is open-sourced software licensed under the [MIT license]
