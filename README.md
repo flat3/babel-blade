@@ -18,7 +18,7 @@ You must install babel (and normally the env preset) in your Laravel project:
 The compiler looks for a babel configuration starting from the view root (normally resources/views) and searching upwards.
 You can therefore use any existing babel configuration file in your project, or you can create one in resources/views that will only be used for babel-blade.
 
-For example at `app/resources/views/.babelrc.json`
+For example at `resources/views/.babelrc.json`
 
 ```
 {
