@@ -1,7 +1,13 @@
 {
   "name": "flat3/babel-blade",
-  "description": "Blade support for Babel scripts",
+  "description": "Blade support for inline Babel scripts",
   "type": "library",
+  "keywords": [
+    "laravel",
+    "blade",
+    "babel",
+    "babeljs"
+  ],
   "license": "MIT",
   "authors": [
     {
