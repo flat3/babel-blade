@@ -1,0 +1,11 @@
+{
+  "name": "babel-blade",
+  "version": "1.0.0",
+  "description": "Babel compiler for Blade",
+  "author": "Chris Lloyd <chrislloyd403@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13"
+  }
+}

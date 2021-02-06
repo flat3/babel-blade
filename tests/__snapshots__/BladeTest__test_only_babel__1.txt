@@ -1,0 +1,15 @@
+<script type="text/javascript">
+(...args) => console.log(...args)
+</script>
+<div id="test">hello</div>
+<script type="text/javascript">
+(function() { "use strict";
+
+(function () {
+  var _console;
+
+  return (_console = console).log.apply(_console, arguments);
+});
+  
+})();
+</script>
