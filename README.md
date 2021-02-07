@@ -7,7 +7,7 @@ Compilation only happens at Blade template caching time, so has no effect on pro
 
 To install the package via composer:
 
-`composer require --dev flat3/babel-blade`
+`composer require flat3/babel-blade`
 
 The compiler expects a nodejs install on the same PATH that is being used by your PHP interpreter.
 
