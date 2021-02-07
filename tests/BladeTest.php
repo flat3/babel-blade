@@ -72,4 +72,15 @@ HERE
 HERE
         );
     }
+
+    public function test_cache() {
+        putenv('BABEL_BLADE_CACHE=1');
+
+        $this->assertMatch(<<<'HERE'
+<script type="text/babel">
+(...args) => console.log(...args)
+</script>
+HERE
+        );
+    }
 }

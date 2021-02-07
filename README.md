@@ -61,6 +61,15 @@ will be transformed at compile time into:
 </script>
 ```
 
+## Laravel Vapor
+
+The Vapor build process clears the view caches and builds templates on first load server-side.
+This is incompatible with babel-blade, since nodejs etc. will not be available.
+
+To work around this, invoke the build as part of the vapor deploy process as `BABEL_BLADE_CACHE=1 php artisan view:cache`.
+This will compile the templates locally into blade files in the view root, and add `@include`s to pull the compiled code
+in during compilation.
+
 ## Polyfills
 
 Babel implements async/await using generators, which need to be polyfilled on older platforms.

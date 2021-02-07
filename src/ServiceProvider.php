@@ -14,14 +14,17 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             function ($value) {
                 $pattern = '#<script type="text/babel">\n?(.*?)\n?</script>#s';
 
-                return preg_replace_callback($pattern, function ($script) {
-                    $viewPath = base_path('resources/views');
+                return preg_replace_callback($pattern, function ($capture) {
+                    $cacheLocal = !!env('BABEL_BLADE_CACHE');
+
+                    $viewPath = resource_path('views');
                     $modulePath = base_path('node_modules');
+                    $script = $capture[1];
 
                     $process = Process::fromShellCommandline('node ' . __DIR__ . '/babel.js', $viewPath, [
                         'PATH' => getenv('PATH'),
                         'NODE_PATH' => $modulePath,
-                    ], $script[1]);
+                    ], $script);
                     $process->run();
 
                     if (!$process->isSuccessful()) {
@@ -29,13 +32,22 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                     }
 
                     $code = $process->getOutput();
-                    return <<<HERE
+                    $result = <<<HERE
 <script type="text/javascript">
 (function() { $code
   
 })();
 </script>
 HERE;
+
+                    if (!$cacheLocal) {
+                        return $result;
+                    }
+
+                    $filename = md5($script) . '.blade.php';
+                    file_put_contents($viewPath . '/' . $filename, $result);
+
+                    return sprintf("@include('%s')", $filename);
                 }, $value);
             }
         );

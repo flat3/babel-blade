@@ -1,7 +1,6 @@
 vendor/
-.php_cs.cache
 .phpunit.result.cache
 .idea/**
 *.iws
-coverage.xml
-out/
+*.iml
+node_modules/
